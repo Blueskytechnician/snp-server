@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketch N Print — Wear the Art</title>
-    <meta name="description" content="Original graphite and colored pencil artwork printed on premium apparel. Hand-drawn by artist Christopher. Dark Series & Light Series collections.">
+    <meta name="description" content="Original graphite and colored pencil artwork printed all-over premium apparel. Hand-drawn by artist Christopher. Dark Series & Light Series collections.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✏️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -298,6 +298,19 @@
 
         .light-mode .section-divider .sub { color: var(--light-muted); }
 
+        .ao-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+
         /* ════════════════════════════════════════════════
            PRODUCT CARDS
            ════════════════════════════════════════════════ */
@@ -309,7 +322,7 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 2rem;
         }
 
@@ -344,7 +357,7 @@
         }
 
         .card-image {
-            height: 280px;
+            height: 340px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -357,17 +370,15 @@
             background: #f0ede8;
         }
 
-        .card-image .art-preview {
-            max-height: 220px;
-            max-width: 90%;
-            object-fit: contain;
-            filter: brightness(0.9);
+        .card-image .mockup-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: all 0.4s;
         }
 
-        .card:hover .art-preview {
-            filter: brightness(1);
-            transform: scale(1.03);
+        .card:hover .mockup-img {
+            transform: scale(1.04);
         }
 
         .card-image .product-icon {
@@ -387,10 +398,9 @@
             text-transform: uppercase;
         }
 
-        .badge-best { background: var(--accent); color: #fff; }
-        .badge-cozy { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold); }
-        .badge-layer { background: rgba(34,197,94,0.12); color: var(--success); border: 1px solid var(--success); }
-        .badge-classic { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+        .badge-dark { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid var(--border); }
+        .badge-light { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold); }
+        .badge-ao { background: var(--accent); color: #fff; }
 
         .card-body {
             padding: 1.5rem;
@@ -455,8 +465,8 @@
         }
 
         .color-swatch {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             border: 2px solid transparent;
             cursor: pointer;
@@ -466,7 +476,7 @@
         .color-swatch.active,
         .color-swatch:hover {
             border-color: var(--accent);
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
 
         .color-name {
@@ -647,549 +657,368 @@
             font-size: 0.88rem;
             color: var(--muted);
             line-height: 1.7;
-            margin-bottom: 0.75rem;
         }
 
-        .light-mode .legal-page p,
-        .light-mode .legal-page li { color: var(--light-muted); }
+        .light-mode .legal-page p, .light-mode .legal-page li { color: var(--light-muted); }
 
-        .legal-page ul {
-            padding-left: 1.5rem;
-        }
-
-        .legal-page a {
-            color: var(--accent);
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 2rem;
-            text-decoration: none;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .back-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+        .legal-page ul { padding-left: 1.5rem; }
 
         /* ════════════════════════════════════════════════
            FOOTER
            ════════════════════════════════════════════════ */
         .footer {
             padding: 3rem 2rem;
-            border-top: 1px solid var(--border);
             text-align: center;
+            border-top: 1px solid var(--border);
         }
 
-        .light-mode .footer {
-            border-top-color: var(--light-border);
-        }
+        .light-mode .footer { border-top-color: var(--light-border); }
 
-        .footer .brand {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 4px;
-            color: var(--text-bright);
-            margin-bottom: 0.5rem;
-        }
-
-        .light-mode .footer .brand { color: var(--light-text); }
-
-        .footer .copy {
+        .footer p {
             font-size: 0.75rem;
             color: var(--muted);
         }
 
-        .light-mode .footer .copy { color: var(--light-muted); }
+        .light-mode .footer p { color: var(--light-muted); }
 
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
+        .footer .verse {
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: var(--gold);
+            opacity: 0.7;
         }
-
-        .footer-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.75rem;
-            transition: color 0.2s;
-        }
-
-        .light-mode .footer-links a { color: var(--light-muted); }
-        .footer-links a:hover { color: var(--accent); }
 
         /* ════════════════════════════════════════════════
            TOAST
            ════════════════════════════════════════════════ */
         .toast {
             position: fixed;
-            bottom: 2rem;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--accent);
-            color: #fff;
-            padding: 12px 24px;
+            color: white;
+            padding: 12px 28px;
             border-radius: 8px;
             font-size: 0.85rem;
-            font-weight: 600;
-            z-index: 9999;
-            opacity: 0;
-            transition: all 0.3s;
+            font-weight: 700;
+            z-index: 999;
+            transition: transform 0.3s ease;
             pointer-events: none;
         }
 
         .toast.show {
-            opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
 
         /* ════════════════════════════════════════════════
-           HIDDEN CLASS
+           UTILITIES
            ════════════════════════════════════════════════ */
         .hidden { display: none !important; }
+        .fade-up { opacity: 0; transform: translateY(20px); }
 
-        /* ════════════════════════════════════════════════
-           RESPONSIVE
-           ════════════════════════════════════════════════ */
-        @media (max-width: 768px) {
-            .header { padding: 0 1rem; }
-            .nav-links { display: none; }
-            .hero h1 { letter-spacing: 4px; }
-            .products { padding: 1rem; }
+        @media (max-width: 600px) {
             .product-grid { grid-template-columns: 1fr; }
-            .about { padding: 3rem 1rem; }
-        }
-
-        @media (max-width: 480px) {
-            .hero { min-height: 70vh; padding: 2rem 1rem; }
-            .card-image { height: 220px; }
-            .card-image .art-preview { max-height: 180px; }
-        }
-
-        /* ════════════════════════════════════════════════
-           SMOOTH TRANSITIONS
-           ════════════════════════════════════════════════ */
-        body, .header, .card, .footer, .about, .section-divider {
-            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+            .card-image { height: 280px; }
         }
     </style>
 </head>
 <body>
+    <!-- Snipcart -->
+    <script async src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js"></script>
+    <div id="snipcart" data-config-modal-style="side" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5" data-currency="USD"></div>
 
-    <!-- Snipcart pre-rendered div (required) -->
-    <div hidden id="snipcart" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5"></div>
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
 
-    <!-- ═══════════════════════════════════════════════════════════
-         HEADER
-         ═══════════════════════════════════════════════════════════ -->
+    <!-- Header -->
     <header class="header">
-        <a href="#" class="logo" onclick="showStore(); return false;">
+        <a href="/" class="logo">
             <span class="logo-icon">SNP</span>
             SKETCH N PRINT
         </a>
         <nav>
             <ul class="nav-links">
-                <li><a href="#dark" onclick="scrollToSection('dark'); return false;">Dark Series</a></li>
-                <li><a href="#light" onclick="scrollToSection('light'); return false;">Light Series</a></li>
+                <li><a href="#dark" onclick="scrollToSection('dark'); return false;">Dark</a></li>
+                <li><a href="#light" onclick="scrollToSection('light'); return false;">Light</a></li>
                 <li><a href="#about" onclick="scrollToSection('about'); return false;">About</a></li>
             </ul>
-            <button class="cart-btn snipcart-checkout">
-                🛒 <span class="snipcart-items-count">0</span>
-            </button>
         </nav>
+        <button class="cart-btn" onclick="Snipcart.api.cart.items.clear() || Snipcart.api.ui.cart.open()">
+            🛒 <span class="cart-count snipcart-items-count">0</span>
+        </button>
     </header>
 
-    <!-- ═══════════════════════════════════════════════════════════
-         STORE CONTENT (main storefront)
-         ═══════════════════════════════════════════════════════════ -->
+    <!-- Main Store Content -->
     <div id="storeContent">
-
-        <!-- HERO -->
+        <!-- Hero -->
         <section class="hero">
-            <h1>SKETCH N PRINT</h1>
-            <p class="tagline">Original art. Hand-drawn. Worn.</p>
+            <h1>WEAR THE ART</h1>
+            <p class="tagline">Original hand-drawn artwork — now in all-over print across the entire garment</p>
             <div class="cta-row">
-                <a href="#dark" class="btn-primary" onclick="scrollToSection('dark'); return false;">Dark Series</a>
-                <a href="#light" class="btn-secondary" onclick="scrollToSection('light'); return false;">Light Series</a>
+                <a href="#dark" class="btn-primary" onclick="scrollToSection('dark'); return false;">🖤 Dark Series</a>
+                <a href="#light" class="btn-secondary" onclick="scrollToSection('light'); return false;">✨ Light Series</a>
             </div>
         </section>
 
-        <!-- ═══════════════════════════════════════════════
+        <!-- ════════════════════════════════════════════════
              DARK SERIES
-             ═══════════════════════════════════════════════ -->
-        <section id="dark">
+             ════════════════════════════════════════════════ -->
+        <div id="dark">
             <div class="section-divider">
                 <h2>DARK SERIES</h2>
-                <p class="sub">Graphite on black cotton. Raw. Unflinching.</p>
+                <p class="sub">Intense graphite work — military, connection, power</p>
+                <span class="ao-badge">ALL-OVER PRINT</span>
             </div>
             <div class="products">
-                <div class="product-grid" id="darkGrid"></div>
+                <div id="darkGrid" class="product-grid"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- ═══════════════════════════════════════════════
+        <!-- ════════════════════════════════════════════════
              LIGHT SERIES
-             ═══════════════════════════════════════════════ -->
-        <section id="light">
+             ════════════════════════════════════════════════ -->
+        <div id="light">
             <div class="section-divider">
                 <h2>LIGHT SERIES</h2>
-                <p class="sub">Color and light. Whimsy on white cotton.</p>
+                <p class="sub">Whimsical colored pencil — magic, fairy, wonder</p>
+                <span class="ao-badge">ALL-OVER PRINT</span>
             </div>
             <div class="products">
-                <div class="product-grid" id="lightGrid"></div>
+                <div id="lightGrid" class="product-grid"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- ═══════════════════════════════════════════════
-             ABOUT
-             ═══════════════════════════════════════════════ -->
-        <section id="about">
-            <div class="about">
-                <h2>THE ARTIST</h2>
-                <p>Every design starts with a pencil. No AI. No filters. Just graphite on paper, colored pencil where the piece demands it. Each drawing is original work by Christopher — hand-drawn, scanned, and printed on premium cotton apparel.</p>
-                <p>These aren't mass-produced graphics. They're wearable art, born from the actual life behind them. The wolves, the eyes, the figures — they carry weight because they were drawn with it.</p>
-                <div class="quality-grid">
-                    <div class="quality-item">
-                        <div class="icon">✏️</div>
-                        <h4>Hand-Drawn</h4>
-                        <p>Every design starts with pencil on paper. No shortcuts.</p>
-                    </div>
-                    <div class="quality-item">
-                        <div class="icon">👕</div>
-                        <h4>Premium Cotton</h4>
-                        <p>Bella+Canvas & Gildan blanks. Soft, durable, real.</p>
-                    </div>
-                    <div class="quality-item">
-                        <div class="icon">🎨</div>
-                        <h4>Direct-to-Garment</h4>
-                        <p>Vibrant prints. No cracking. No peeling. Period.</p>
-                    </div>
-                    <div class="quality-item">
-                        <div class="icon">📦</div>
-                        <h4>Printed & Shipped</h4>
-                        <p>Fulfillment via Printful. Direct to your door.</p>
-                    </div>
+        <!-- About -->
+        <section id="about" class="about">
+            <h2>ART WEAR, NOT FAST FASHION</h2>
+            <p>Every piece starts with Christopher\'s hand-drawn graphite and colored pencil originals — no AI, no vectors, no shortcuts. These aren\'t graphics slapped on a shirt. They\'re artwork wrapping the entire garment in all-over print.</p>
+            <div class="quality-grid">
+                <div class="quality-item">
+                    <div class="icon">🎨</div>
+                    <h4>100% Original Art</h4>
+                    <p>Graphite and colored pencil originals by Christopher. No AI. No clip art.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="icon">👕</div>
+                    <h4>All-Over Print</h4>
+                    <p>Design covers the entire garment — front, back, and sleeves. Not just a chest print.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="icon">♻️</div>
+                    <h4>Printed On Demand</h4>
+                    <p>Zero waste. Each piece is made when you order it. No overproduction.</p>
+                </div>
+                <div class="quality-item">
+                    <div class="icon">🚚</div>
+                    <h4>Ships Worldwide</h4>
+                    <p>Global fulfillment via Printful. Track every order from press to door.</p>
                 </div>
             </div>
         </section>
-
-    </div><!-- end storeContent -->
-
-    <!-- ═══════════════════════════════════════════════════════════
-         LEGAL PAGES
-         ═══════════════════════════════════════════════════════════ -->
-    <div id="page-shipping" class="legal-page">
-        <button class="back-btn" onclick="showStore()">← Back to Store</button>
-        <h1>SHIPPING</h1>
-        <h2>Processing Time</h2>
-        <p>Orders are processed within 2–5 business days. Each item is printed to order via Printful — no warehouse, no waste.</p>
-        <h2>Domestic Shipping (US)</h2>
-        <p>Standard: 5–8 business days. Expedited options available at checkout. Shipping calculated by carrier rate at checkout.</p>
-        <h2>International Shipping</h2>
-        <p>Available to select countries. Delivery times vary (10–21 business days). Duties and taxes are the buyer's responsibility.</p>
     </div>
 
-    <div id="page-returns" class="legal-page">
-        <button class="back-btn" onclick="showStore()">← Back to Store</button>
-        <h1>RETURNS & REFUNDS</h1>
-        <h2>Our Policy</h2>
-        <p>Because each item is printed to order, we can only offer replacements for defective or damaged items. We do not accept returns for buyer's remorse or sizing errors.</p>
-        <h2>Defective Items</h2>
-        <p>If your item arrives damaged or with a print defect, contact us within 14 days with photos. We'll send a replacement at no cost.</p>
-        <h2>Wrong Size</h2>
-        <p>Please check the size chart before ordering. We provide detailed measurements on each product page. If you're between sizes, size up.</p>
-    </div>
-
-    <div id="page-terms" class="legal-page">
-        <button class="back-btn" onclick="showStore()">← Back to Store</button>
-        <h1>TERMS OF SERVICE</h1>
-        <h2>Agreement</h2>
-        <p>By placing an order, you agree to these terms. Read them.</p>
-        <h2>Intellectual Property</h2>
-        <p>All artwork is original and owned by Christopher. You may not reproduce, resell, or use any design for commercial purposes. Period.</p>
-        <h2>Limitation of Liability</h2>
-        <p>Sketch N Print is not liable for shipping delays caused by carriers, print delays, or acts of God. We'll always communicate status.</p>
-    </div>
-
+    <!-- Legal Pages -->
     <div id="page-privacy" class="legal-page">
-        <button class="back-btn" onclick="showStore()">← Back to Store</button>
         <h1>PRIVACY POLICY</h1>
-        <h2>Data We Collect</h2>
-        <p>We collect only what's needed to fulfill your order: name, shipping address, email. Payment is processed by Stripe — we never see your card number.</p>
-        <h2>How We Use It</h2>
-        <p>Order fulfillment only. We don't sell your data. We don't spam you. We might email you about your order status — that's it.</p>
-        <h2>Third Parties</h2>
-        <p>Printful (fulfillment), Snipcart (checkout), Stripe (payments). Each has their own privacy policy. We share only the minimum data needed to get your order to you.</p>
+        <p>Last updated: October 2026</p>
+        <h2>Information We Collect</h2>
+        <p>When you place an order, we collect your name, email, shipping address, and payment information. Payment is processed securely through Stripe; we never store your full card number.</p>
+        <h2>How We Use Your Information</h2>
+        <p>Your information is used solely to fulfill orders, send order updates, and respond to customer service inquiries. We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+        <h2>Third-Party Services</h2>
+        <p>Orders are fulfilled through Printful and payments processed through Stripe. Both have their own privacy policies governing the data they receive.</p>
+        <h2>Contact</h2>
+        <p>sketchnprintart@gmail.com</p>
+    </div>
+    <div id="page-terms" class="legal-page">
+        <h1>TERMS OF SERVICE</h1>
+        <p>Last updated: October 2026</p>
+        <h2>Orders &amp; Fulfillment</h2>
+        <p>All items are print-on-demand, fulfilled by Printful. Production typically takes 2–7 business days before shipping.</p>
+        <h2>Returns &amp; Exchanges</h2>
+        <p>Since each item is made to order, we can only offer replacements for defective or incorrect items. Contact us within 14 days of delivery with photos.</p>
+        <h2>Intellectual Property</h2>
+        <p>All artwork is the property of Christopher Unrien, DBA Sketch N Print. Unauthorized reproduction is prohibited.</p>
+        <h2>Contact</h2>
+        <p>sketchnprintart@gmail.com</p>
+    </div>
+    <div id="page-refunds" class="legal-page">
+        <h1>REFUND POLICY</h1>
+        <p>Last updated: October 2026</p>
+        <h2>Defective Items</h2>
+        <p>If your item arrives damaged, has printing defects, or is the wrong product, contact us within 14 days. We\'ll send a replacement at no cost.</p>
+        <h2>Size Issues</h2>
+        <p>Please check the size chart before ordering. All-over print garments use cut-sew construction; sizing differs from standard tees. We cannot replace items for size preference.</p>
+        <h2>Contact</h2>
+        <p>sketchnprintart@gmail.com</p>
     </div>
 
-    <div id="page-contact" class="legal-page">
-        <button class="back-btn" onclick="showStore()">← Back to Store</button>
-        <h1>CONTACT</h1>
-        <h2>Get In Touch</h2>
-        <p>Email: sketchnprintart@gmail.com</p>
-        <p>We're a small operation. We'll get back to you within 48 hours.</p>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         FOOTER
-         ═══════════════════════════════════════════════════════════ -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="brand">SKETCH N PRINT</div>
-        <p class="copy">&copy; 2026 Christopher — All Rights Reserved</p>
-        <div class="footer-links">
-            <a href="#" onclick="showLegal('shipping'); return false;">Shipping</a>
-            <a href="#" onclick="showLegal('returns'); return false;">Returns & Refunds</a>
-            <a href="#" onclick="showLegal('terms'); return false;">Terms of Service</a>
-            <a href="#" onclick="showLegal('privacy'); return false;">Privacy Policy</a>
-            <a href="#" onclick="showLegal('contact'); return false;">Contact</a>
-        </div>
+        <p>&copy; 2026 Christopher Unrien, DBA Sketch N Print. All rights reserved.</p>
+        <p class="verse">\"A righteous man regardeth the life of his beast\" — Proverbs 12:10</p>
+        <p style="margin-top:1rem;">
+            <a href="#" onclick="showLegal('privacy'); return false;" style="color:var(--muted); font-size:0.7rem;">Privacy</a> &middot;
+            <a href="#" onclick="showLegal('terms'); return false;" style="color:var(--muted); font-size:0.7rem;">Terms</a> &middot;
+            <a href="#" onclick="showLegal('refunds'); return false;" style="color:var(--muted); font-size:0.7rem;">Refunds</a>
+        </p>
     </footer>
 
-    <!-- Toast notification -->
-    <div class="toast" id="toast"></div>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         SNIPCART SCRIPTS
-         ═══════════════════════════════════════════════════════════ -->
     <script>
-    window.SnipcartSettings = {
-        publicApiKey: 'ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5',
-        loadStrategy: 'on-user-interaction'
+    // ══════════════════════════════════════════════════════════
+    //  MOCKUP IMAGE MAP — Printful CDN URLs per product + color
+    // ══════════════════════════════════════════════════════════
+    const MOCKUP_MAP = {
+        // ─── Shadow Sentinel ───────────────────────────────────────
+        'shadow-sentinel-tee': {
+            'Black':         'https://files.cdn.printful.com/files/ac3/ac3d4ad426e568a2dbf2364e25f40781_preview.png',
+            'White':         'https://files.cdn.printful.com/files/19e/19eaf6e6571b463ba1e414b84300fbcc_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/21d/21d079c98622142cfcd6023a926bc610_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/2cb/2cb089c59d66f306a4420dbffaee24fe_preview.png'
+        },
+        'shadow-sentinel-hoodie': {
+            'Black':         'https://files.cdn.printful.com/files/d21/d21523d8796d04aeba2745f914cb0417_preview.png',
+            'Charcoal':      'https://files.cdn.printful.com/files/7e1/7e19cf3b90d555a48a3f09257e5c464f_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/be5/be534c151bb22137137d9d3d1dd4bb70d_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/bfb/bfb6f70c117a63b7c46e6df9e670e9a7_preview.png',
+            'Sport Grey':    'https://files.cdn.printful.com/files/151/151654aab380c5ed7e3a2971c4e486dc_preview.png'
+        },
+        // ─── Eternal Embrace ───────────────────────────────────────
+        'eternal-embrace-tee': {
+            'Black':         'https://files.cdn.printful.com/files/144/144491a6ecda8eb9b98ce1374ce1e949_preview.png',
+            'White':         'https://files.cdn.printful.com/files/c3c/c3c6bdab8aef269b2a5c26bde69eb1fe_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/8f8/8f84e5cf2608ffb975adab36de674a95_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/5f4/5f4e69d508181c7966b4105e49b9e40d_preview.png'
+        },
+        'eternal-embrace-hoodie': {
+            'Black':         'https://files.cdn.printful.com/files/e96/e96d5bb5cc5ca37ba1cde5f7367b0091_preview.png',
+            'Charcoal':      'https://files.cdn.printful.com/files/59f/59fa192e5e88c7ea3dc67a191882690f_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/1b2/1b28c803bece5c72f5ce3cf6b23c66b7_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/862/862252823a0c24ce989ce7efb6016471_preview.png',
+            'Sport Grey':    'https://files.cdn.printful.com/files/917/917f53c9e6efdb70f930bbd66ffdeb23_preview.png'
+        },
+        // ─── Celestial Fairy ───────────────────────────────────────
+        'celestial-fairy-tee': {
+            'Black':         'https://files.cdn.printful.com/files/d47/d47907747b62e3962a512cdef0f68728_preview.png',
+            'White':         'https://files.cdn.printful.com/files/3e0/3e021d610ff228549df69427123c9d6e_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/3e3/3e3069d302213f6a8c791bd31f8366e5_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/986/98662455e6da5ad408ee718715b51a80_preview.png'
+        },
+        'celestial-fairy-hoodie': {
+            'Black':         'https://files.cdn.printful.com/files/2d3/2d34a7b660ae4795c30bcfb68710a3a1_preview.png',
+            'Charcoal':      'https://files.cdn.printful.com/files/c68/c689bbc99037289c22595195eaee2083_preview.png',
+            'Military Green':'https://files.cdn.printful.com/files/093/09398cc47926ff3b7b36739cecfa8e5b_preview.png',
+            'Navy':          'https://files.cdn.printful.com/files/684/68408fd87d1440ac44b616a4afb7979a_preview.png',
+            'Sport Grey':    'https://files.cdn.printful.com/files/b84/b84854aee76f996317123d19be16246d_preview.png'
+        }
     };
-    </script>
-    <script src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js" async></script>
 
-    <!-- ═══════════════════════════════════════════════════════════
-         JAVASCRIPT
-         ═══════════════════════════════════════════════════════════ -->
-    <script>
-    // ─── ART IMAGE DATA ─────────────────────────────────────────
-    const ART_IMAGES = {
-        'all-seeing-eye': 'snp-art-all-seeing-eye.jpeg',
-        'surreal-embrace': 'snp-art-surreal-embrace.jpeg',
-        'wolves-moon': 'snp-art-wolves-moon.jpeg',
-        'rainbow-fairy': 'snp-art-rainbow-fairy.jpeg',
-        'shadow-sentinel': 'https://storage.googleapis.com/ot-pt/code_agent/gpt_image/edit/2026-10-07/4f27f8e7d553/snp_design1_cleaned.png?Expires=1793899764&GoogleAccessId=gcs-owner%40oreateai-434511.iam.gserviceaccount.com&Signature=fA0scfiUslHAqsIobomWxGnTYscZtsV2hpLaIHrkXd%2FnFi6FiDAXdQhYaLAUX38l96OkdIPMBZK71WTm2XD0vf%2F4YxLWjRacOtFiYtvFvd%2FE%2BPKkS%2BMq1J%2BfGq1VibCR0jC81Im504sAEgd9ORGrFYH%2BzvmoG2HqiBRrR55poDiyI3A8i%2BCxHpQbxJ7eeDOSc6yeyQQi5aRIH19HgEdyC84Puz2Lc6VwNLg%2BTu6C7PoP3NhYX6bv%2BquHdU7S%2Ffiq%2BPuU9hg8Sdygym4rE3GQL9C8O0SLqj9D8xcsCsZSGkU0SLV%2BWziwHzwPnt5y4g%2FJFhCq6w3Hvd%2BhHvVIuijynA%3D%3D',
-        'eternal-embrace': 'https://storage.googleapis.com/ot-pt/code_agent/gpt_image/edit/2026-10-07/1581467f0add/snp_design2_cleaned.png?Expires=1793899798&GoogleAccessId=gcs-owner%40oreateai-434511.iam.gserviceaccount.com&Signature=Tj68a%2FShMzxoNcw7JttQV4FIoxI8cL4Wi0o6tlkIZHyOQ58BWUzI7Q3x971DpxT4MNx%2FRGEvwvA0J27kfwrgmn01J0ThEgmL26%2BXixBO4Rscg6YYLxnea23pfrGqiFLaJyXD4y2T7O%2B2%2BmVfKqCI1iKguxYuvVAQEWrhyP6Qv7OZ7oiKcU5r82UUvb7cS0wCoAT9j0f5xIad8VaHfL5uQbuMNeJhs4oGeFaUhovVpUymTRfY1Ib8s%2BVHxaVrn%2Fh5cao2aqSfx0S6yHI8RPbXxMyKO61VcZ3NFQnu7rw7y55NR4%2FYhzwmljEKYXpPGuQUJO07vPhUCyB298xD4jIcDA%3D%3D',
-        'celestial-fairy': 'https://storage.googleapis.com/ot-pt/code_agent/gpt_image/edit/2026-10-07/30c70c1f028f/snp_design3_cleaned.png?Expires=1793899828&GoogleAccessId=gcs-owner%40oreateai-434511.iam.gserviceaccount.com&Signature=PB175bMfDBp9oS1sIYS%2BOgd9u02SBMsGr8TI897IKFVzBiZP6mp49eU4PEX%2B%2FmH7YrSj4rE%2B8iBUy8ajEuAPJGCPAEhbTpZUMkOnNIvSrXVmuo8fPgvNe6l2UxT8Fc5QrdEl0axUMP7AoGi%2BJdwysXmUvmPTNo%2BtNZyPLoKgkvgrg0DJGu1sX4SIiissSqYLd%2FhHW%2FSUir%2BrNtXWx5udWCj2LMWXaI3Y0%2FdM2CRWF1pQfnkS65z0ZLHWF%2BPmMPzqQUu2QJqha9i86XlhBnTAT90MRW3Z52Rldc0Wmbpgy7R1S6K4yhl3QNUT2At6TKeHqdh7y7i2PVUF9BaB59QLvQ%3D%3D',
-    };
-
-    // ─── PRODUCT DATA ─────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    //  PRODUCT DATA
+    // ══════════════════════════════════════════════════════════
     const DARK_PRODUCTS = {
-        'snp-bc3001-all-seeing-eye': {
-            name: 'All-Seeing Eye Tee',
-            subtitle: 'Bella+Canvas 3001',
-            art: 'all-seeing-eye',
-            badge: 'BEST SELLER',
-            badgeClass: 'badge-best',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:29.99, M:29.99, L:29.99, XL:29.99, '2XL':32.99, '3XL':34.99 },
-            description: 'Hands forcing the eye open. Forced awareness. Hyper-detailed graphite on black cotton.'
+        'snp-ao-shadow-sentinel-tee': {
+            name: 'Shadow Sentinel — All-Over Print Tee',
+            subtitle: 'Cut-Sew All-Over Print Tee',
+            mockupKey: 'shadow-sentinel-tee',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'White', hex: '#f0f0f0' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL'],
+            prices: { XS:39.99, S:39.99, M:39.99, L:39.99, XL:39.99, '2XL':42.99 },
+            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. All-over cut-sew construction — design wraps the entire garment.'
         },
-        'snp-bc3719-all-seeing-eye': {
-            name: 'All-Seeing Eye Hoodie',
-            subtitle: 'Bella+Canvas 3719',
-            art: 'all-seeing-eye',
-            badge: 'COZY',
-            badgeClass: 'badge-cozy',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:59.99, M:59.99, L:59.99, XL:59.99, '2XL':62.99 },
-            description: 'The lead dark design on premium fleece. You cannot look away.'
+        'snp-ao-shadow-sentinel-hoodie': {
+            name: 'Shadow Sentinel — All-Over Print Hoodie',
+            subtitle: 'Recycled All-Over Print Hoodie',
+            mockupKey: 'shadow-sentinel-hoodie',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'Charcoal', hex: '#363636' },
+                { name: 'Sport Grey', hex: '#9a9a9a' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL','3XL'],
+            prices: { XS:59.99, S:59.99, M:59.99, L:59.99, XL:59.99, '2XL':62.99, '3XL':64.99 },
+            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. All-over recycled hoodie — design covers front, back, sleeves, hood, and pocket.'
         },
-        'snp-g18500-surreal-embrace': {
-            name: 'Surreal Embrace Hoodie',
-            subtitle: 'Gildan 18500',
-            art: 'surreal-embrace',
-            badge: 'BEST SELLER',
-            badgeClass: 'badge-best',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:49.99, M:49.99, L:49.99, XL:49.99, '2XL':52.99, '3XL':54.99 },
-            description: 'Two figures intertwined. Vulnerable. Connected. Soft charcoal on heavy blend cotton.'
+        'snp-ao-eternal-embrace-tee': {
+            name: 'Eternal Embrace — All-Over Print Tee',
+            subtitle: 'Cut-Sew All-Over Print Tee',
+            mockupKey: 'eternal-embrace-tee',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'White', hex: '#f0f0f0' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL'],
+            prices: { XS:39.99, S:39.99, M:39.99, L:39.99, XL:39.99, '2XL':42.99 },
+            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection. All-over cut-sew — design wraps the entire garment.'
         },
-        'snp-g18000-wolves-moon': {
-            name: 'Wolves & Moon Crewneck',
-            subtitle: 'Gildan 18000',
-            art: 'wolves-moon',
-            badge: 'CLASSIC',
-            badgeClass: 'badge-classic',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:44.99, M:44.99, L:44.99, XL:44.99, '2XL':47.99, '3XL':49.99 },
-            description: 'Two wolves howling at the moon. Mandala rays. Pack-calling on heavyweight cotton.'
-        },
-        'snp-shadow-sentinel-tee': {
-            name: 'Shadow Sentinel Tee',
-            subtitle: 'Bella+Canvas 3001',
-            art: 'shadow-sentinel',
-            badge: 'NEW',
-            badgeClass: 'badge-best',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:27.99, M:27.99, L:27.99, XL:27.99, '2XL':30.99, '3XL':32.99 },
-            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. Graphite intensity on black cotton.'
-        },
-        'snp-shadow-sentinel-hoodie': {
-            name: 'Shadow Sentinel Hoodie',
-            subtitle: 'Gildan 18500',
-            art: 'shadow-sentinel',
-            badge: 'NEW',
-            badgeClass: 'badge-cozy',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:54.99, M:54.99, L:54.99, XL:54.99, '2XL':57.99, '3XL':59.99 },
-            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. Heavy blend fleece.'
-        },
-        'snp-shadow-sentinel-crewneck': {
-            name: 'Shadow Sentinel Crewneck',
-            subtitle: 'Gildan 18000',
-            art: 'shadow-sentinel',
-            badge: 'NEW',
-            badgeClass: 'badge-classic',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:44.99, M:44.99, L:44.99, XL:44.99, '2XL':47.99, '3XL':49.99 },
-            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. Heavyweight cotton crew.'
-        },
-        'snp-shadow-sentinel-longsleeve': {
-            name: 'Shadow Sentinel Long Sleeve',
-            subtitle: 'Bella+Canvas 3501',
-            art: 'shadow-sentinel',
-            badge: 'NEW',
-            badgeClass: 'badge-layer',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:33.99, M:33.99, L:33.99, XL:33.99, '2XL':36.99 },
-            description: 'Stern military woman in peaked cap with star emblem. Suspenders and dark gloves. Lightweight long sleeve.'
-        },
-        'snp-eternal-embrace-tee': {
-            name: 'Eternal Embrace Tee',
-            subtitle: 'Bella+Canvas 3001',
-            art: 'eternal-embrace',
-            badge: 'NEW',
-            badgeClass: 'badge-best',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:27.99, M:27.99, L:27.99, XL:27.99, '2XL':30.99, '3XL':32.99 },
-            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection on black cotton.'
-        },
-        'snp-eternal-embrace-hoodie': {
-            name: 'Eternal Embrace Hoodie',
-            subtitle: 'Gildan 18500',
-            art: 'eternal-embrace',
-            badge: 'NEW',
-            badgeClass: 'badge-cozy',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:54.99, M:54.99, L:54.99, XL:54.99, '2XL':57.99, '3XL':59.99 },
-            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection on heavy blend fleece.'
-        },
-        'snp-eternal-embrace-crewneck': {
-            name: 'Eternal Embrace Crewneck',
-            subtitle: 'Gildan 18000',
-            art: 'eternal-embrace',
-            badge: 'NEW',
-            badgeClass: 'badge-classic',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL','3XL'],
-            prices: { S:44.99, M:44.99, L:44.99, XL:44.99, '2XL':47.99, '3XL':49.99 },
-            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection on heavyweight cotton crew.'
-        },
-        'snp-eternal-embrace-longsleeve': {
-            name: 'Eternal Embrace Long Sleeve',
-            subtitle: 'Bella+Canvas 3501',
-            art: 'eternal-embrace',
-            badge: 'NEW',
-            badgeClass: 'badge-layer',
-            colors: [{ name: 'Black', hex: '#1a1a1a' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:33.99, M:33.99, L:33.99, XL:33.99, '2XL':36.99 },
-            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection on lightweight long sleeve.'
+        'snp-ao-eternal-embrace-hoodie': {
+            name: 'Eternal Embrace — All-Over Print Hoodie',
+            subtitle: 'Recycled All-Over Print Hoodie',
+            mockupKey: 'eternal-embrace-hoodie',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'Charcoal', hex: '#363636' },
+                { name: 'Sport Grey', hex: '#9a9a9a' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL','3XL'],
+            prices: { XS:59.99, S:59.99, M:59.99, L:59.99, XL:59.99, '2XL':62.99, '3XL':64.99 },
+            description: 'Two women locked in an intimate gaze. One holds the other\'s chin. Raw graphite connection. All-over recycled hoodie — design covers front, back, sleeves, hood, and pocket.'
         }
     };
 
     const LIGHT_PRODUCTS = {
-        'snp-bc3001-rainbow-fairy': {
-            name: 'Rainbow Fairy Tee',
-            subtitle: 'Bella+Canvas 3001',
-            art: 'rainbow-fairy',
-            badge: 'DREAMY',
-            badgeClass: 'badge-cozy',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:27.99, M:27.99, L:27.99, XL:27.99, '2XL':30.99 },
-            description: 'Rainbow wings, hearts, flowers. Colored pencil whimsy on crisp white cotton.'
+        'snp-ao-celestial-fairy-tee': {
+            name: 'Celestial Fairy — All-Over Print Tee',
+            subtitle: 'Cut-Sew Women\'s All-Over Print Tee',
+            mockupKey: 'celestial-fairy-tee',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'White', hex: '#f0f0f0' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL'],
+            prices: { XS:39.99, S:39.99, M:39.99, L:39.99, XL:39.99, '2XL':42.99 },
+            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy. All-over cut-sew — design wraps the entire garment.'
         },
-        'snp-bc3501-rainbow-fairy': {
-            name: 'Rainbow Fairy Long Sleeve',
-            subtitle: 'Bella+Canvas 3501',
-            art: 'rainbow-fairy',
-            badge: 'WHIMSICAL',
-            badgeClass: 'badge-layer',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:37.99, M:37.99, L:37.99, XL:37.99, '2XL':40.99 },
-            description: 'Fairy magic on lightweight long sleeve. Perfect gift energy.'
-        },
-        'snp-celestial-fairy-tee': {
-            name: 'Celestial Fairy Tee',
-            subtitle: 'Bella+Canvas 3001',
-            art: 'celestial-fairy',
-            badge: 'NEW',
-            badgeClass: 'badge-best',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:27.99, M:27.99, L:27.99, XL:27.99, '2XL':30.99 },
-            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy on crisp white.'
-        },
-        'snp-celestial-fairy-hoodie': {
-            name: 'Celestial Fairy Hoodie',
-            subtitle: 'Gildan 18500',
-            art: 'celestial-fairy',
-            badge: 'NEW',
-            badgeClass: 'badge-cozy',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:54.99, M:54.99, L:54.99, XL:54.99, '2XL':57.99 },
-            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy on heavy blend fleece.'
-        },
-        'snp-celestial-fairy-crewneck': {
-            name: 'Celestial Fairy Crewneck',
-            subtitle: 'Gildan 18000',
-            art: 'celestial-fairy',
-            badge: 'NEW',
-            badgeClass: 'badge-classic',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:44.99, M:44.99, L:44.99, XL:44.99, '2XL':47.99 },
-            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy on heavyweight cotton crew.'
-        },
-        'snp-celestial-fairy-longsleeve': {
-            name: 'Celestial Fairy Long Sleeve',
-            subtitle: 'Bella+Canvas 3501',
-            art: 'celestial-fairy',
-            badge: 'NEW',
-            badgeClass: 'badge-layer',
-            colors: [{ name: 'White', hex: '#f5f5f5' }],
-            sizes: ['S','M','L','XL','2XL'],
-            prices: { S:33.99, M:33.99, L:33.99, XL:33.99, '2XL':36.99 },
-            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy on lightweight long sleeve.'
+        'snp-ao-celestial-fairy-hoodie': {
+            name: 'Celestial Fairy — All-Over Print Hoodie',
+            subtitle: 'Recycled All-Over Print Hoodie',
+            mockupKey: 'celestial-fairy-hoodie',
+            badge: 'ALL-OVER',
+            badgeClass: 'badge-ao',
+            colors: [
+                { name: 'Black', hex: '#1a1a1a' },
+                { name: 'Navy', hex: '#1a2460' },
+                { name: 'Military Green', hex: '#3c4a2e' },
+                { name: 'Charcoal', hex: '#363636' },
+                { name: 'Sport Grey', hex: '#9a9a9a' }
+            ],
+            sizes: ['XS','S','M','L','XL','2XL','3XL'],
+            prices: { XS:59.99, S:59.99, M:59.99, L:59.99, XL:59.99, '2XL':62.99, '3XL':64.99 },
+            description: 'Bee fairy with golden wings and spear staff. Colorful mandala backdrop. Colored pencil whimsy. All-over recycled hoodie — design covers front, back, sleeves, hood, and pocket.'
         }
     };
 
@@ -1205,8 +1034,13 @@
             if (isLight) card.classList.add('light-mode');
             card.style.transitionDelay = (idx * 80) + 'ms';
 
+            // Get first mockup image
+            const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
+            const firstColor = p.colors[0].name;
+            const defaultMockup = mockupUrls[firstColor] || Object.values(mockupUrls)[0] || '';
+
             const colorSwatches = p.colors.map((c, i) =>
-                `<span class="color-swatch ${i===0?'active':''}" style="background:${c.hex}" data-color="${c.name}" data-slug="${slug}" onclick="selectColor(this)" title="${c.name}"></span>`
+                `<span class="color-swatch ${i===0?'active':''}" style="background:${c.hex}" data-color="${c.name}" data-slug="${slug}" data-mockup="${mockupUrls[c.name] || ''}" onclick="selectColor(this)" title="${c.name}"></span>`
             ).join('');
 
             const sizeChips = p.sizes.map((s, i) =>
@@ -1214,11 +1048,10 @@
             ).join('');
 
             const basePrice = p.prices[p.sizes[0]];
-            const artSrc = ART_IMAGES[p.art] || '';
 
             card.innerHTML = `
                 <div class="card-image">
-                    ${artSrc ? `<img class="art-preview" src="${artSrc}" alt="${p.name} - Original Art by Christopher" loading="lazy">` : `<span class="product-icon">👕</span>`}
+                    ${defaultMockup ? `<img class="mockup-img" id="img-${slug}" src="${defaultMockup}" alt="${p.name} - All-Over Print Mockup" loading="lazy">` : `<span class="product-icon">👕</span>`}
                     <span class="card-badge ${p.badgeClass}">${p.badge}</span>
                 </div>
                 <div class="card-body">
@@ -1251,6 +1084,24 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // ─── COLOR SWITCH — changes mockup image ──────────────────
+    function selectColor(el) {
+        el.closest('.color-row').querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+        const slug = el.dataset.slug;
+        const mockupUrl = el.dataset.mockup;
+        if (mockupUrl) {
+            const img = document.getElementById('img-' + slug);
+            if (img) {
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    img.src = mockupUrl;
+                    img.style.opacity = '1';
+                }, 200);
+            }
+        }
     }
 
     // ─── LIGHT MODE TOGGLE FOR LIGHT SERIES ────────────────────
@@ -1296,11 +1147,6 @@
     }
 
     // ─── SELECTIONS ───────────────────────────────────────────
-    function selectColor(el) {
-        el.closest('.color-row').querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-        el.classList.add('active');
-    }
-
     function selectSize(el) {
         const slug = el.dataset.slug;
         el.closest('.size-row').querySelectorAll('.size-chip').forEach(s => s.classList.remove('active'));
@@ -1320,7 +1166,8 @@
         const products = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
         const p = products[slug];
         const price = p.prices[size];
-        const artSrc = ART_IMAGES[p.art] || '';
+        const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
+        const imgSrc = mockupUrls[color] || Object.values(mockupUrls)[0] || '';
 
         Snipcart.api.cart.items.add({
             id: slug + '-' + size + '-' + color.toLowerCase().replace(/\s+/g, '-'),
@@ -1328,7 +1175,7 @@
             price: price,
             url: '/',
             description: p.description,
-            image: artSrc,
+            image: imgSrc,
             quantity: 1,
             customFields: [
                 { name: 'Color', type: 'readonly', options: color, value: color },
