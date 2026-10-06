@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch N Print — Wear the Art</title>
+    <meta name="description" content="Original graphite and colored pencil artwork printed on premium apparel. Hand-drawn by artist Christopher. Dark Series & Light Series collections.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✏️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --card: #0d0d0d;
+            --border: #1e1e1e;
+            --border-hover: #333;
+            --accent: #4169E1;
+            --accent-dim: rgba(65,105,225,0.15);
+            --accent-glow: rgba(65,105,225,0.4);
+            --gold: #c9a84c;
+            --gold-dim: rgba(201,168,76,0.12);
+            --text: #d4d4d4;
+            --text-bright: #f0f0f0;
+            --muted: #666;
+            --success: #22c55e;
+            --light-bg: #ffffff;
+            --light-surface: #fff;
+            --light-card: #fff;
+            --light-border: #e0ddd8;
+            --light-accent: #4169E1;
+            --light-accent-dim: rgba(65,105,225,0.1);
+            --light-text: #2d2a26;
+            --light-muted: #8a8580;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            background: #ffffff !important;
+            color: var(--light-text);
+        }
+
+        /* ════════════════════════════════════════════════
+           HEADER / NAV
+           ════════════════════════════════════════════════ */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(7,7,7,0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 90;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .light-mode .header {
+            background: rgba(248,246,243,0.95);
+            border-bottom-color: var(--light-border);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            color: var(--text-bright);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .light-mode .logo { color: var(--light-text); }
+
+        .logo .logo-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .light-mode .nav-links a { color: var(--light-muted); }
+        .nav-links a:hover { color: var(--text-bright); }
+        .light-mode .nav-links a:hover { color: var(--light-text); }
+
+        .cart-btn {
+            cursor: pointer;
+            position: relative;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .light-mode .cart-btn {
+            border-color: var(--light-border);
+            color: var(--light-text);
+        }
+
+        .cart-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ════════════════════════════════════════════════
+           HERO
+           ════════════════════════════════════════════════ */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 4rem 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, var(--accent-dim) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            letter-spacing: 8px;
+            color: var(--text-bright);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .light-mode .hero h1 { color: var(--light-text); }
+
+        .light-mode .hero::before {
+            background: radial-gradient(ellipse at 50% 30%, rgba(65,105,225,0.08) 0%, transparent 60%);
+        }
+
+        .hero .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .light-mode .hero .tagline { color: var(--light-muted); }
+
+        .hero .cta-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: #2e5bc4;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .light-mode .btn-primary {
+            background: var(--light-accent);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .light-mode .btn-secondary {
+            color: var(--light-text);
+            border-color: var(--light-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ════════════════════════════════════════════════
+           SECTION DIVIDER
+           ════════════════════════════════════════════════ */
+        .section-divider {
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .section-divider h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 6px;
+            color: var(--text-bright);
+        }
+
+        .light-mode .section-divider h2 { color: var(--light-text); }
+
+        .section-divider .sub {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        .light-mode .section-divider .sub { color: var(--light-muted); }
+
+        /* ════════════════════════════════════════════════
+           PRODUCT CARDS
+           ════════════════════════════════════════════════ */
+        .products {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+
+        .light-mode .card {
+            background: var(--light-card);
+            border-color: var(--light-border);
+        }
+
+        .light-mode .card:hover {
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+        }
+
+        .card-image {
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--surface);
+            overflow: hidden;
+        }
+
+        .light-mode .card-image {
+            background: #f0ede8;
+        }
+
+        .card-image .art-preview {
+            max-height: 220px;
+            max-width: 90%;
+            object-fit: contain;
+            filter: brightness(0.9);
+            transition: all 0.4s;
+        }
+
+        .card:hover .art-preview {
+            filter: brightness(1);
+            transform: scale(1.03);
+        }
+
+        .card-image .product-icon {
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .badge-best { background: var(--accent); color: #fff; }
+        .badge-cozy { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold); }
+        .badge-layer { background: rgba(34,197,94,0.12); color: var(--success); border: 1px solid var(--success); }
+        .badge-classic { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 2px;
+        }
+
+        .light-mode .card-body h3 { color: var(--light-text); }
+
+        .card-body .subtitle {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .light-mode .card-body .subtitle { color: var(--light-muted); }
+
+        .card-body .desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .light-mode .card-body .desc { color: var(--light-muted); }
+
+        .card-body .price {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+
+        .light-mode .card-body .price { color: var(--light-text); }
+
+        .options {
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .light-mode .options label { color: var(--light-muted); }
+
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-swatch.active,
+        .color-swatch:hover {
+            border-color: var(--accent);
+            transform: scale(1.15);
+        }
+
+        .color-name {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .size-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .size-chip {
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .light-mode .size-chip {
+            border-color: var(--light-border);
+            color: var(--light-text);
+        }
+
+        .size-chip.active,
+        .size-chip:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        .light-mode .size-chip.active,
+        .light-mode .size-chip:hover {
+            border-color: var(--light-accent);
+            background: var(--light-accent-dim);
+            color: var(--light-accent);
+        }
+
+        .atc {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .atc:hover {
+            background: #2e5bc4;
+            transform: translateY(-1px);
+        }
+
+        .light-mode .atc {
+            background: var(--light-accent);
+        }
+
+        /* ════════════════════════════════════════════════
+           QUALITY / ABOUT
+           ════════════════════════════════════════════════ */
+        .about {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            color: var(--text-bright);
+            margin-bottom: 1rem;
+        }
+
+        .light-mode .about h2 { color: var(--light-text); }
+
+        .about p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .light-mode .about p { color: var(--light-muted); }
+
+        .quality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quality-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .light-mode .quality-item {
+            background: var(--light-card);
+            border-color: var(--light-border);
+        }
+
+        .quality-item .icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .quality-item h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 4px;
+        }
+
+        .light-mode .quality-item h4 { color: var(--light-text); }
+
+        .quality-item p {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .light-mode .quality-item p { color: var(--light-muted); }
+
+        /* ════════════════════════════════════════════════
+           LEGAL PAGES
+           ════════════════════════════════════════════════ */
+        .legal-page {
+            display: none;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .legal-page.active {
+            display: block;
+        }
+
+        .legal-page h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 4px;
+            color: var(--text-bright);
+            margin-bottom: 1.5rem;
+        }
+
+        .light-mode .legal-page h1 { color: var(--light-text); }
+
+        .legal-page h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .light-mode .legal-page h2 { color: var(--light-accent); }
+
+        .legal-page p, .legal-page li {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .light-mode .legal-page p,
+        .light-mode .legal-page li { color: var(--light-muted); }
+
+        .legal-page ul {
+            padding-left: 1.5rem;
+        }
+
+        .legal-page a {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ════════════════════════════════════════════════
+           FOOTER
+           ════════════════════════════════════════════════ */
+        .footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .light-mode .footer {
+            border-top-color: var(--light-border);
+        }
+
+        .footer .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            color: var(--text-bright);
+            margin-bottom: 0.5rem;
+        }
+
+        .light-mode .footer .brand { color: var(--light-text); }
+
+        .footer .copy {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .light-mode .footer .copy { color: var(--light-muted); }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: color 0.2s;
+        }
+
+        .light-mode .footer-links a { color: var(--light-muted); }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* ════════════════════════════════════════════════
+           TOAST
+           ════════════════════════════════════════════════ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ════════════════════════════════════════════════
+           HIDDEN CLASS
+           ════════════════════════════════════════════════ */
+        .hidden { display: none !important; }
+
+        /* ════════════════════════════════════════════════
+           RESPONSIVE
+           ════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .header { padding: 0 1rem; }
+            .nav-links { display: none; }
+            .hero h1 { letter-spacing: 4px; }
+            .products { padding: 1rem; }
+            .product-grid { grid-template-columns: 1fr; }
+            .about { padding: 3rem 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { min-height: 70vh; padding: 2rem 1rem; }
+            .card-image { height: 220px; }
+            .card-image .art-preview { max-height: 180px; }
+        }
+
+        /* ════════════════════════════════════════════════
+           SMOOTH TRANSITIONS
+           ════════════════════════════════════════════════ */
+        body, .header, .card, .footer, .about, .section-divider {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Snipcart pre-rendered div (required) -->
+    <div hidden id="snipcart" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════════════ -->
+    <header class="header">
+        <a href="#" class="logo" onclick="showStore(); return false;">
+            <span class="logo-icon">SNP</span>
+            SKETCH N PRINT
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#dark" onclick="scrollToSection('dark'); return false;">Dark Series</a></li>
+                <li><a href="#light" onclick="scrollToSection('light'); return false;">Light Series</a></li>
+                <li><a href="#about" onclick="scrollToSection('about'); return false;">About</a></li>
+            </ul>
+            <button class="cart-btn snipcart-checkout">
+                🛒 <span class="snipcart-items-count">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         STORE CONTENT (main storefront)
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="storeContent">
+
+        <!-- HERO -->
+        <section class="hero">
+            <h1>SKETCH N PRINT</h1>
+            <p class="tagline">Original art. Hand-drawn. Worn.</p>
+            <div class="cta-row">
+                <a href="#dark" class="btn-primary" onclick="scrollToSection('dark'); return false;">Dark Series</a>
+                <a href="#light" class="btn-secondary" onclick="scrollToSection('light'); return false;">Light Series</a>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+             DARK SERIES
+             ═══════════════════════════════════════════════ -->
+        <section id="dark">
+            <div class="section-divider">
+                <h2>DARK SERIES</h2>
+                <p class="sub">Graphite on black cotton. Raw. Unflinching.</p>
+            </div>
+            <div class="products">
+                <div class="product-grid" id="darkGrid"></div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+             LIGHT SERIES
+             ═══════════════════════════════════════════════ -->
+        <section id="light">
+            <div class="section-divider">
+                <h2>LIGHT SERIES</h2>
+                <p class="sub">Color and light. Whimsy on white cotton.</p>
+            </div>
+            <div class="products">
+                <div class="product-grid" id="lightGrid"></div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+             ABOUT
+             ═══════════════════════════════════════════════ -->
+        <section id="about">
+            <div class="about">
+                <h2>THE ARTIST</h2>
+                <p>Every design starts with a pencil. No AI. No filters. Just graphite on paper, colored pencil where the piece demands it. Each drawing is original work by Christopher — hand-drawn, scanned, and printed on premium cotton apparel.</p>
+                <p>These aren't mass-produced graphics. They're wearable art, born from the actual life behind them. The wolves, the eyes, the figures — they carry weight because they were drawn with it.</p>
+                <div class="quality-grid">
+                    <div class="quality-item">
+                        <div class="icon">✏️</div>
+                        <h4>Hand-Drawn</h4>
+                        <p>Every design starts with pencil on paper. No shortcuts.</p>
+                    </div>
+                    <div class="quality-item">
+                        <div class="icon">👕</div>
+                        <h4>Premium Cotton</h4>
+                        <p>Bella+Canvas & Gildan blanks. Soft, durable, real.</p>
+                    </div>
+                    <div class="quality-item">
+                        <div class="icon">🎨</div>
+                        <h4>Direct-to-Garment</h4>
+                        <p>Vibrant prints. No cracking. No peeling. Period.</p>
+                    </div>
+                    <div class="quality-item">
+                        <div class="icon">📦</div>
+                        <h4>Printed & Shipped</h4>
+                        <p>Fulfillment via Printful. Direct to your door.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end storeContent -->
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LEGAL PAGES
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="page-shipping" class="legal-page">
+        <button class="back-btn" onclick="showStore()">← Back to Store</button>
+        <h1>SHIPPING</h1>
+        <h2>Processing Time</h2>
+        <p>Orders are processed within 2–5 business days. Each item is printed to order via Printful — no warehouse, no waste.</p>
+        <h2>Domestic Shipping (US)</h2>
+        <p>Standard: 5–8 business days. Expedited options available at checkout. Shipping calculated by carrier rate at checkout.</p>
+        <h2>International Shipping</h2>
+        <p>Available to select countries. Delivery times vary (10–21 business days). Duties and taxes are the buyer's responsibility.</p>
+    </div>
+
+    <div id="page-returns" class="legal-page">
+        <button class="back-btn" onclick="showStore()">← Back to Store</button>
+        <h1>RETURNS & REFUNDS</h1>
+        <h2>Our Policy</h2>
+        <p>Because each item is printed to order, we can only offer replacements for defective or damaged items. We do not accept returns for buyer's remorse or sizing errors.</p>
+        <h2>Defective Items</h2>
+        <p>If your item arrives damaged or with a print defect, contact us within 14 days with photos. We'll send a replacement at no cost.</p>
+        <h2>Wrong Size</h2>
+        <p>Please check the size chart before ordering. We provide detailed measurements on each product page. If you're between sizes, size up.</p>
+    </div>
+
+    <div id="page-terms" class="legal-page">
+        <button class="back-btn" onclick="showStore()">← Back to Store</button>
+        <h1>TERMS OF SERVICE</h1>
+        <h2>Agreement</h2>
+        <p>By placing an order, you agree to these terms. Read them.</p>
+        <h2>Intellectual Property</h2>
+        <p>All artwork is original and owned by Christopher. You may not reproduce, resell, or use any design for commercial purposes. Period.</p>
+        <h2>Limitation of Liability</h2>
+        <p>Sketch N Print is not liable for shipping delays caused by carriers, print delays, or acts of God. We'll always communicate status.</p>
+    </div>
+
+    <div id="page-privacy" class="legal-page">
+        <button class="back-btn" onclick="showStore()">← Back to Store</button>
+        <h1>PRIVACY POLICY</h1>
+        <h2>Data We Collect</h2>
+        <p>We collect only what's needed to fulfill your order: name, shipping address, email. Payment is processed by Stripe — we never see your card number.</p>
+        <h2>How We Use It</h2>
+        <p>Order fulfillment only. We don't sell your data. We don't spam you. We might email you about your order status — that's it.</p>
+        <h2>Third Parties</h2>
+        <p>Printful (fulfillment), Snipcart (checkout), Stripe (payments). Each has their own privacy policy. We share only the minimum data needed to get your order to you.</p>
+    </div>
+
+    <div id="page-contact" class="legal-page">
+        <button class="back-btn" onclick="showStore()">← Back to Store</button>
+        <h1>CONTACT</h1>
+        <h2>Get In Touch</h2>
+        <p>Email: sketchnprintart@gmail.com</p>
+        <p>We're a small operation. We'll get back to you within 48 hours.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="brand">SKETCH N PRINT</div>
+        <p class="copy">&copy; 2026 Christopher — All Rights Reserved</p>
+        <div class="footer-links">
+            <a href="#" onclick="showLegal('shipping'); return false;">Shipping</a>
+            <a href="#" onclick="showLegal('returns'); return false;">Returns & Refunds</a>
+            <a href="#" onclick="showLegal('terms'); return false;">Terms of Service</a>
+            <a href="#" onclick="showLegal('privacy'); return false;">Privacy Policy</a>
+            <a href="#" onclick="showLegal('contact'); return false;">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SNIPCART SCRIPTS
+         ═══════════════════════════════════════════════════════════ -->
+    <script>
+    window.SnipcartSettings = {
+        publicApiKey: 'ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5',
+        loadStrategy: 'on-user-interaction'
+    };
+    </script>
+    <script src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js" async></script>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         JAVASCRIPT
+         ═══════════════════════════════════════════════════════════ -->
+    <script>
+    // ─── ART IMAGE DATA ─────────────────────────────────────────
+    const ART_IMAGES = {
+        'all-seeing-eye': 'snp-art-all-seeing-eye.jpeg',
+        'surreal-embrace': 'snp-art-surreal-embrace.jpeg',
+        'wolves-moon': 'snp-art-wolves-moon.jpeg',
+        'rainbow-fairy': 'snp-art-rainbow-fairy.jpeg',
+    };
+
+    // ─── PRODUCT DATA ─────────────────────────────────────────
+    const DARK_PRODUCTS = {
+        'snp-bc3001-all-seeing-eye': {
+            name: 'All-Seeing Eye Tee',
+            subtitle: 'Bella+Canvas 3001',
+            art: 'all-seeing-eye',
+            badge: 'BEST SELLER',
+            badgeClass: 'badge-best',
+            colors: [{ name: 'Black', hex: '#1a1a1a' }],
+            sizes: ['S','M','L','XL','2XL','3XL'],
+            prices: { S:29.99, M:29.99, L:29.99, XL:29.99, '2XL':32.99, '3XL':34.99 },
+            description: 'Hands forcing the eye open. Forced awareness. Hyper-detailed graphite on black cotton.'
+        },
+        'snp-bc3719-all-seeing-eye': {
+            name: 'All-Seeing Eye Hoodie',
+            subtitle: 'Bella+Canvas 3719',
+            art: 'all-seeing-eye',
+            badge: 'COZY',
+            badgeClass: 'badge-cozy',
+            colors: [{ name: 'Black', hex: '#1a1a1a' }],
+            sizes: ['S','M','L','XL','2XL'],
+            prices: { S:59.99, M:59.99, L:59.99, XL:59.99, '2XL':62.99 },
+            description: 'The lead dark design on premium fleece. You can't look away.'
+        },
+        'snp-g18500-surreal-embrace': {
+            name: 'Surreal Embrace Hoodie',
+            subtitle: 'Gildan 18500',
+            art: 'surreal-embrace',
+            badge: 'BEST SELLER',
+            badgeClass: 'badge-best',
+            colors: [{ name: 'Black', hex: '#1a1a1a' }],
+            sizes: ['S','M','L','XL','2XL','3XL'],
+            prices: { S:49.99, M:49.99, L:49.99, XL:49.99, '2XL':52.99, '3XL':54.99 },
+            description: 'Two figures intertwined. Vulnerable. Connected. Soft charcoal on heavy blend cotton.'
+        },
+        'snp-g18000-wolves-moon': {
+            name: 'Wolves & Moon Crewneck',
+            subtitle: 'Gildan 18000',
+            art: 'wolves-moon',
+            badge: 'CLASSIC',
+            badgeClass: 'badge-classic',
+            colors: [{ name: 'Black', hex: '#1a1a1a' }],
+            sizes: ['S','M','L','XL','2XL','3XL'],
+            prices: { S:44.99, M:44.99, L:44.99, XL:44.99, '2XL':47.99, '3XL':49.99 },
+            description: 'Two wolves howling at the moon. Mandala rays. Pack-calling on heavyweight cotton.'
+        }
+    };
+
+    const LIGHT_PRODUCTS = {
+        'snp-bc3001-rainbow-fairy': {
+            name: 'Rainbow Fairy Tee',
+            subtitle: 'Bella+Canvas 3001',
+            art: 'rainbow-fairy',
+            badge: 'DREAMY',
+            badgeClass: 'badge-cozy',
+            colors: [{ name: 'White', hex: '#f5f5f5' }],
+            sizes: ['S','M','L','XL','2XL'],
+            prices: { S:27.99, M:27.99, L:27.99, XL:27.99, '2XL':30.99 },
+            description: 'Rainbow wings, hearts, flowers. Colored pencil whimsy on crisp white cotton.'
+        },
+        'snp-bc3501-rainbow-fairy': {
+            name: 'Rainbow Fairy Long Sleeve',
+            subtitle: 'Bella+Canvas 3501',
+            art: 'rainbow-fairy',
+            badge: 'WHIMSICAL',
+            badgeClass: 'badge-layer',
+            colors: [{ name: 'White', hex: '#f5f5f5' }],
+            sizes: ['S','M','L','XL','2XL'],
+            prices: { S:37.99, M:37.99, L:37.99, XL:37.99, '2XL':40.99 },
+            description: 'Fairy magic on lightweight long sleeve. Perfect gift energy.'
+        }
+    };
+
+    // ─── RENDER PRODUCTS ──────────────────────────────────────
+    function renderProducts(productData, gridId, isLight) {
+        const grid = document.getElementById(gridId);
+        const keys = Object.keys(productData);
+
+        keys.forEach((slug, idx) => {
+            const p = productData[slug];
+            const card = document.createElement('div');
+            card.className = 'card fade-up';
+            if (isLight) card.classList.add('light-mode');
+            card.style.transitionDelay = (idx * 80) + 'ms';
+
+            const colorSwatches = p.colors.map((c, i) =>
+                `<span class="color-swatch ${i===0?'active':''}" style="background:${c.hex}" data-color="${c.name}" data-slug="${slug}" onclick="selectColor(this)" title="${c.name}"></span>`
+            ).join('');
+
+            const sizeChips = p.sizes.map((s, i) =>
+                `<span class="size-chip ${i===0?'active':''}" data-size="${s}" data-slug="${slug}" onclick="selectSize(this)">${s}</span>`
+            ).join('');
+
+            const basePrice = p.prices[p.sizes[0]];
+            const artSrc = ART_IMAGES[p.art] || '';
+
+            card.innerHTML = `
+                <div class="card-image">
+                    ${artSrc ? `<img class="art-preview" src="${artSrc}" alt="${p.name} - Original Art by Christopher" loading="lazy">` : `<span class="product-icon">👕</span>`}
+                    <span class="card-badge ${p.badgeClass}">${p.badge}</span>
+                </div>
+                <div class="card-body">
+                    <h3>${p.name}</h3>
+                    <p class="subtitle">${p.subtitle}</p>
+                    <p class="desc">${p.description}</p>
+                    <p class="price" id="price-${slug}">$${basePrice.toFixed(2)}</p>
+                    <div class="options">
+                        <label>Color</label>
+                        <div class="color-row">${colorSwatches}</div>
+                    </div>
+                    <div class="options">
+                        <label>Size</label>
+                        <div class="size-row">${sizeChips}</div>
+                    </div>
+                    <button class="atc" data-slug="${slug}" onclick="addToCart(this)">Add to Cart</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Intersection Observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // ─── LIGHT MODE TOGGLE FOR LIGHT SERIES ────────────────────
+    function applyLightMode() {
+        document.body.classList.add('light-mode');
+    }
+
+    function removeLightMode() {
+        document.body.classList.remove('light-mode');
+    }
+
+    // Observe scroll — full page theme switch
+    const themeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting && e.target.id === 'light') {
+                applyLightMode();
+            } else if (e.isIntersecting && e.target.id === 'dark') {
+                removeLightMode();
+            }
+        });
+    }, { threshold: 0.15 });
+
+    const darkSection = document.getElementById('dark');
+    if (darkSection) themeObserver.observe(darkSection);
+
+    // ─── NAVIGATION ───────────────────────────────────────────
+    function scrollToSection(id) {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showLegal(page) {
+        document.getElementById('storeContent').classList.add('hidden');
+        document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + page);
+        if (target) target.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function showStore() {
+        document.getElementById('storeContent').classList.remove('hidden');
+        document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
+        window.scrollTo(0, 0);
+    }
+
+    // ─── SELECTIONS ───────────────────────────────────────────
+    function selectColor(el) {
+        el.closest('.color-row').querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function selectSize(el) {
+        const slug = el.dataset.slug;
+        el.closest('.size-row').querySelectorAll('.size-chip').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+        const products = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
+        const p = products[slug];
+        const price = p.prices[el.dataset.size];
+        document.getElementById('price-' + slug).textContent = '$' + price.toFixed(2);
+    }
+
+    // ─── CART (SNIPCART) ───────────────────────────────────────
+    function addToCart(btn) {
+        const slug = btn.dataset.slug;
+        const card = btn.closest('.card');
+        const color = card.querySelector('.color-swatch.active').dataset.color;
+        const size = card.querySelector('.size-chip.active').dataset.size;
+        const products = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
+        const p = products[slug];
+        const price = p.prices[size];
+        const artSrc = ART_IMAGES[p.art] || '';
+
+        Snipcart.api.cart.items.add({
+            id: slug + '-' + size + '-' + color.toLowerCase().replace(/\s+/g, '-'),
+            name: p.name + ' (' + p.subtitle + ')',
+            price: price,
+            url: '/',
+            description: p.description,
+            image: artSrc,
+            quantity: 1,
+            customFields: [
+                { name: 'Color', type: 'readonly', options: color, value: color },
+                { name: 'Size', type: 'readonly', options: size, value: size }
+            ]
+        });
+
+        showToast(p.name + ' (' + color + '/' + size + ') added to cart');
+    }
+
+    // ─── TOAST ──────────────────────────────────────────────
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // ─── INIT ────────────────────────────────────────────────
+    renderProducts(DARK_PRODUCTS, 'darkGrid', false);
+    renderProducts(LIGHT_PRODUCTS, 'lightGrid', true);
+
+    const lightSection = document.getElementById('light');
+    if (lightSection) themeObserver.observe(lightSection);
+    </script>
+</body>
+</html>
