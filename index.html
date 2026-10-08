@@ -1345,8 +1345,30 @@
         const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
         const imgSrc = mockupUrls[color] || Object.values(mockupUrls)[0] || '';
 
+        // Ensure Snipcart is loaded (new loader uses on-user-interaction strategy)
         if (!window.Snipcart || !Snipcart.api) {
-            showToast('Store is loading… please try again in a moment');
+            if (window.LoadSnipcart) {
+                window.LoadSnipcart(); // Force load on first add-to-cart click
+            }
+            showToast('Store is loading… adding your item now');
+            // Retry after Snipcart finishes loading
+            setTimeout(function() {
+                if (window.Snipcart && Snipcart.api && Snipcart.api.cart && Snipcart.api.cart.items) {
+                    Snipcart.api.cart.items.add({
+                        id: slug + '-' + size + '-' + color.toLowerCase().replace(/\s+/g, '-'),
+                        name: p.name + ' (' + p.subtitle + ')',
+                        price: price,
+                        url: 'https://blueskytechnician.github.io/snp-server/',
+                        description: p.description,
+                        image: imgSrc,
+                        quantity: 1,
+                        customFields: [
+                            { name: 'Garment Base', type: 'readonly', options: color, value: color },
+                            { name: 'Size', type: 'readonly', options: size, value: size }
+                        ]
+                    });
+                }
+            }, 1500);
             return;
         }
         Snipcart.api.cart.items.add({
