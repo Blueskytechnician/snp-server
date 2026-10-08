@@ -20,8 +20,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <!-- Snipcart CSS -->
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css">
+    <!-- Snipcart CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css">
+    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
 
     <!-- Site CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -47,9 +48,8 @@
     <!-- Removed inline <style> — moved to styles.css -->
 </head>
 <body>
-    <!-- Snipcart config div MUST exist BEFORE the script loads -->
-    <div hidden id="snipcart" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5" data-config-modal-style="side" data-currency="USD"></div>
-    <script async src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js"></script>
+    <!-- Snipcart Hidden Container -->
+    <div id="snipcart" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5" data-config-modal-style="side" data-currency="USD" hidden></div>
 
     <!-- Snipcart Order Validation: Hidden product definitions -->
     <!-- Snipcart crawls this page to validate cart items at checkout -->
