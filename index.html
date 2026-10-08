@@ -1,4 +1,4 @@
-<!-- SNP v3 — AOP store, honest mockups, White-only launch -->
+<!-- SNP v4 — Native Snipcart integration per Jim's recommendation -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +20,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
-    <!-- Snipcart CSS & JS -->
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.css">
-    <script async src="https://cdn.snipcart.com/themes/v3.0.31/default/snipcart.js"></script>
+    <!-- Snipcart: Modern loader with sidecart config built-in -->
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.css">
+    <script async src="https://cdn.snipcart.com/themes/v3.4.1/default/snipcart.js"></script>
 
     <!-- Site CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -44,11 +44,9 @@
       }
     }
     </script>
-
-    <!-- Removed inline <style> — moved to styles.css -->
 </head>
 <body>
-    <!-- Snipcart Hidden Container -->
+    <!-- Snipcart Hidden Container: sidecart config via data attribute -->
     <div id="snipcart" data-api-key="ZGIzZmIyYjYtOWE3ZC00OWIzLWI3YTMtMTcxNTIyOTNjY2MzNjM5MjY3NTk2NTgxOTk1NzY5" data-config-modal-style="side" data-currency="USD" hidden></div>
 
     <!-- Snipcart Order Validation: Hidden product definitions -->
@@ -117,7 +115,7 @@
                 <li><a href="#about" onclick="scrollToSection('about'); return false;">About</a></li>
             </ul>
         </nav>
-        <button class="cart-btn" onclick="openCart()">
+        <button class="cart-btn snipcart-checkout">
             🛒 <span class="cart-count snipcart-items-count">0</span>
         </button>
     </header>
@@ -377,7 +375,16 @@
         }
     };
 
-    // ─── RENDER PRODUCTS ──────────────────────────────────────
+    // Merge for lookups
+    const ALL_PRODUCTS = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
+
+    // ─── RENDER PRODUCTS (Native Snipcart buttons) ───────────
+    // Each Add-to-Cart button uses class="snipcart-add-item" with
+    // data-item-* attributes. Snipcart's JS auto-discovers these
+    // and wires up click handlers — no custom addToCart() needed.
+    // When user selects a different size, selectSize() updates
+    // the button's data-item-* attributes dynamically.
+    // ────────────────────────────────────────────────────────
     function renderProducts(productData, gridId, isLight) {
         const grid = document.getElementById(gridId);
         const keys = Object.keys(productData);
@@ -392,6 +399,14 @@
             const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
             const firstColor = p.colors[0].name;
             const defaultMockup = mockupUrls[firstColor] || Object.values(mockupUrls)[0] || '';
+            const defaultSize = p.sizes[0];
+            const defaultPrice = p.prices[defaultSize];
+
+            // Build size options string for Snipcart custom field: "XS|S|M|L|XL|2XL"
+            const sizeOptionsStr = p.sizes.join('|');
+
+            // Build the Snipcart product ID: slug-size-color (lowercase)
+            const defaultItemId = slug + '-' + defaultSize + '-' + firstColor.toLowerCase().replace(/\s+/g, '-');
 
             const colorSwatches = p.colors.map((c, i) =>
                 `<span class="color-swatch ${i===0?'active':''}" style="background:${c.hex}" data-color="${c.name}" data-slug="${slug}" data-mockup="${mockupUrls[c.name] || ''}" onclick="selectColor(this)" title="${c.name}"></span>`
@@ -400,8 +415,6 @@
             const sizeChips = p.sizes.map((s, i) =>
                 `<span class="size-chip ${i===0?'active':''}" data-size="${s}" data-slug="${slug}" onclick="selectSize(this)">${s}</span>`
             ).join('');
-
-            const basePrice = p.prices[p.sizes[0]];
 
             card.innerHTML = `
                 <div class="card-image">
@@ -412,7 +425,7 @@
                     <h3>${p.name}</h3>
                     <p class="subtitle">${p.subtitle}</p>
                     <p class="desc">${p.description}</p>
-                    <p class="price" id="price-${slug}">$${basePrice.toFixed(2)}</p>
+                    <p class="price" id="price-${slug}">$${defaultPrice.toFixed(2)}</p>
                     <div class="options">
                         <label>Garment Base</label>
                         <div class="color-row">${colorSwatches}<span class="color-name">White</span></div>
@@ -422,7 +435,20 @@
                         <div class="size-row">${sizeChips}</div>
                     </div>
                     <p class="mockup-note">Preview shows design on white base garment. Actual AOP product covers the entire garment.</p>
-                    <button class="atc" data-slug="${slug}" onclick="addToCart(this)">Add to Cart</button>
+                    <button class="atc snipcart-add-item"
+                        id="btn-${slug}"
+                        data-item-id="${defaultItemId}"
+                        data-item-price="${defaultPrice}"
+                        data-item-url="https://blueskytechnician.github.io/snp-server/"
+                        data-item-name="${p.name} (${p.subtitle})"
+                        data-item-image="${defaultMockup}"
+                        data-item-description="${p.description}"
+                        data-item-custom1-name="Size"
+                        data-item-custom1-options="${sizeOptionsStr}"
+                        data-item-custom1-value="${defaultSize}"
+                        data-item-custom2-name="Garment Base"
+                        data-item-custom2-options="${p.colors.map(c => c.name).join('|')}"
+                        data-item-custom2-value="${firstColor}">Add to Cart</button>
                 </div>
             `;
             grid.appendChild(card);
@@ -440,7 +466,38 @@
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     }
 
+    // ─── SIZE SELECTION ───────────────────────────────────
+    // Updates the visible price AND the Snipcart data-item-*
+    // attributes on the button so the correct variant is added
+    // ──────────────────────────────────────────────────────
+    function selectSize(el) {
+        const slug = el.dataset.slug;
+        const size = el.dataset.size;
+        el.closest('.size-row').querySelectorAll('.size-chip').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+
+        const p = ALL_PRODUCTS[slug];
+        const price = p.prices[size];
+
+        // Update displayed price
+        document.getElementById('price-' + slug).textContent = '$' + price.toFixed(2);
+
+        // Update Snipcart button attributes
+        const btn = document.getElementById('btn-' + slug);
+        if (btn) {
+            btn.setAttribute('data-item-price', price);
+            btn.setAttribute('data-item-custom1-value', size);
+            // Update the item ID to match the size/color combo for order validation
+            const color = btn.closest('.card').querySelector('.color-swatch.active');
+            const colorName = color ? color.dataset.color : 'White';
+            btn.setAttribute('data-item-id', slug + '-' + size + '-' + colorName.toLowerCase().replace(/\s+/g, '-'));
+        }
+    }
+
     // ─── COLOR SWITCH ──────────────────────────────────────
+    // Updates the mockup image AND the Snipcart data-item-image
+    // and data-item-custom2-value attributes
+    // ──────────────────────────────────────────────────────
     function selectColor(el) {
         el.closest('.color-row').querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
         el.classList.add('active');
@@ -448,6 +505,8 @@
         const mockupUrl = el.dataset.mockup;
         const colorName = el.closest('.color-row').querySelector('.color-name');
         if (colorName) colorName.textContent = el.dataset.color;
+
+        // Update mockup image
         if (mockupUrl) {
             const img = document.getElementById('img-' + slug);
             if (img) {
@@ -457,6 +516,17 @@
                     img.style.opacity = '1';
                 }, 200);
             }
+        }
+
+        // Update Snipcart button attributes for the new color
+        const btn = document.getElementById('btn-' + slug);
+        if (btn) {
+            if (mockupUrl) btn.setAttribute('data-item-image', mockupUrl);
+            btn.setAttribute('data-item-custom2-value', el.dataset.color);
+            // Update item ID to match size/color combo
+            const size = btn.closest('.card').querySelector('.size-chip.active');
+            const sizeName = size ? size.dataset.size : btn.getAttribute('data-item-custom1-value');
+            btn.setAttribute('data-item-id', slug + '-' + sizeName + '-' + el.dataset.color.toLowerCase().replace(/\s+/g, '-'));
         }
     }
 
@@ -492,83 +562,6 @@
         document.querySelectorAll('.legal-page').forEach(p => p.classList.remove('active'));
         window.scrollTo(0, 0);
     }
-
-    // ─── SIZE SELECTION ───────────────────────────────────
-    function selectSize(el) {
-        const slug = el.dataset.slug;
-        el.closest('.size-row').querySelectorAll('.size-chip').forEach(s => s.classList.remove('active'));
-        el.classList.add('active');
-        const products = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
-        const p = products[slug];
-        const price = p.prices[el.dataset.size];
-        document.getElementById('price-' + slug).textContent = '$' + price.toFixed(2);
-    }
-
-    // ─── CART (SNIPCART) ──────────────────────────────────
-    function addToCart(btn) {
-        const slug = btn.dataset.slug;
-        const card = btn.closest('.card');
-        const color = card.querySelector('.color-swatch.active').dataset.color;
-        const size = card.querySelector('.size-chip.active').dataset.size;
-        const products = { ...DARK_PRODUCTS, ...LIGHT_PRODUCTS };
-        const p = products[slug];
-        const price = p.prices[size];
-        const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
-        const imgSrc = mockupUrls[color] || Object.values(mockupUrls)[0] || '';
-
-        // Classic install: Snipcart loads on page load, should be ready
-        if (window.Snipcart && Snipcart.api && Snipcart.api.cart && Snipcart.api.cart.items) {
-            Snipcart.api.cart.items.add({
-                id: slug + '-' + size + '-' + color.toLowerCase().replace(/\s+/g, '-'),
-                name: p.name + ' (' + p.subtitle + ')',
-                price: price,
-                url: 'https://blueskytechnician.github.io/snp-server/',
-                description: p.description,
-                image: imgSrc,
-                quantity: 1,
-                customFields: [
-                    { name: 'Garment Base', type: 'readonly', options: color, value: color },
-                    { name: 'Size', type: 'readonly', options: size, value: size }
-                ]
-            });
-            showToast(p.name + ' (' + color + '/' + size + ') added to cart');
-        } else {
-            showToast('Store is still loading — please try again in a moment');
-        }
-    }
-
-    // ─── CART OPEN ───────────────────────────────────────
-    function openCart() {
-        if (window.Snipcart && Snipcart.api && Snipcart.api.ui) {
-            Snipcart.api.ui.cart.open();
-        } else {
-            showToast('Cart is still loading — please try again in a moment');
-        }
-    }
-
-    // ─── SNIPCART SDK READY — ensure sidebar mode + fix remove button ──
-    (function waitForSnipcart() {
-        if (window.Snipcart && window.Snipcart.api) {
-            try {
-                // Subscribe to cart ready event to force sidecart class
-                if (Snipcart.store && Snipcart.store.subscribe) {
-                    Snipcart.store.subscribe(function() {
-                        var state = Snipcart.store.getState();
-                        // When cart is opened, ensure sidecart class is applied
-                        var modal = document.querySelector('.snipcart-layout');
-                        if (modal && !modal.classList.contains('snipcart-layout__content--side')) {
-                            modal.classList.add('snipcart-layout__content--side');
-                        }
-                    });
-                }
-                console.log('[SNP] Snipcart SDK ready — sidebar mode active');
-            } catch(e) {
-                console.warn('[SNP] Snipcart config error:', e);
-            }
-        } else {
-            setTimeout(waitForSnipcart, 300);
-        }
-    })();
 
     // ─── TOAST ───────────────────────────────────────────
     function showToast(msg) {
