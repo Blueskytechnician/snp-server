@@ -57,14 +57,16 @@
             --light-muted: #8a8580;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Scope reset to OUR content only — don't break Snipcart */
+        #storeContent *, #toast *, header *, footer *, .hero *, .card *, section * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
+            /* Removed overflow-x:hidden — it clips Snipcart sidecart on mobile */
         }
 
         body.light-mode {
@@ -777,6 +779,89 @@
             .card-image { height: 280px; }
             .aop-banner { margin: 0 1rem 1.5rem; }
         }
+
+        /* ═══════════════════════════════════════════════════════════
+           SNIPCART SAFETY OVERRIDES — ensure cart UI works correctly
+           ═══════════════════════════════════════════════════════════ */
+
+        /* 1. Z-index: Snipcart modal must sit ABOVE our header (z:90) */
+        .snipcart-modal-container,
+        #snipcart-modal-container,
+        .snipcart-layout,
+        [class*="snipcart-modal"],
+        [class*="snipcart-layout"] {
+            z-index: 99999 !important;
+        }
+
+        /* 2. Don't let our styles break Snipcart's internal box model */
+        .snipcart * {
+            box-sizing: border-box !important;
+        }
+
+        /* 3. Remove button: must be visible and clickable */
+        .snipcart-item-line__actions button,
+        .snipcart-item-line__actions a,
+        [class*="item-line"] button,
+        [class*="item-line"] a {
+            pointer-events: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            cursor: pointer !important;
+            display: inline-flex !important;
+            color: var(--color-error, #e74c3c) !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 4px 8px !important;
+            margin: 0 !important;
+            min-height: 32px !important;
+            min-width: 32px !important;
+            position: relative !important;
+            z-index: 999999 !important;
+        }
+
+        /* 4. Snipcart sidecart: force sidebar layout on desktop */
+        @media (min-width: 1024px) {
+            .snipcart-layout__content--side,
+            [class*="snipcart-layout"][class*="--side"] {
+                position: fixed !important;
+                right: 0 !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                width: 400px !important;
+                max-width: 90vw !important;
+                height: 100vh !important;
+                animation: slideIn 0.3s ease-out forwards !important;
+            }
+            .snipcart-layout__content--side .snipcart-layout__header,
+            [class*="snipcart-layout"][class*="--side"] [class*="header"] {
+                display: flex !important;
+            }
+        }
+
+        /* 5. Ensure Snipcart overlay/backdrop is above header too */
+        .snipcart-backdrop,
+        [class*="snipcart-backdrop"],
+        [class*="snipcart-overlay"] {
+            z-index: 99998 !important;
+        }
+
+        /* 6. Cart items list: ensure scrolling works */
+        .snipcart-cart-items,
+        [class*="cart-items"] {
+            overflow-y: auto !important;
+            max-height: 50vh !important;
+        }
+
+        /* 7. Quantity +/- buttons must be clickable */
+        .snipcart-item-quantity button,
+        [class*="item-quantity"] button {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            min-height: 28px !important;
+            min-width: 28px !important;
+            position: relative !important;
+            z-index: 999999 !important;
+        }
     </style>
 </head>
 <body>
@@ -1278,6 +1363,37 @@
             showToast('Cart is loading… please try again in a moment');
         }
     }
+
+    // ─── SNIPCART SDK READY — configure sidebar mode programmatically ──
+    // The data-config-modal-style="side" attribute on #snipcart may not
+    // be read by the async-loaded SDK. This ensures sidebar mode is set.
+    (function waitForSnipcart() {
+        if (window.Snipcart && window.Snipcart.api) {
+            // SDK is loaded — configure it
+            try {
+                // Method 1: Direct configuration
+                if (Snipcart.api.ui && Snipcart.api.ui.configure) {
+                    Snipcart.api.ui.configure('modal_style', 'side');
+                }
+                // Method 2: Subscribe to store and force sidecart class
+                if (Snipcart.store && Snipcart.store.subscribe) {
+                    Snipcart.store.subscribe('cart.ready', function() {
+                        // Ensure the modal container gets the side class
+                        var modal = document.querySelector('.snipcart-layout');
+                        if (modal && !modal.classList.contains('snipcart-layout__content--side')) {
+                            modal.classList.add('snipcart-layout__content--side');
+                        }
+                        console.log('[SNP] Snipcart ready — sidebar mode configured');
+                    });
+                }
+            } catch(e) {
+                console.warn('[SNP] Snipcart config error:', e);
+            }
+        } else {
+            // SDK not loaded yet — retry
+            setTimeout(waitForSnipcart, 300);
+        }
+    })();
 
     // ─── TOAST ───────────────────────────────────────────
     function showToast(msg) {
