@@ -850,7 +850,7 @@
                 <li><a href="#about" onclick="scrollToSection('about'); return false;">About</a></li>
             </ul>
         </nav>
-        <button class="cart-btn" onclick="Snipcart.api.cart.items.clear() || Snipcart.api.ui.cart.open()">
+        <button class="cart-btn" onclick="openCart()">
             🛒 <span class="cart-count snipcart-items-count">0</span>
         </button>
     </header>
@@ -1249,6 +1249,10 @@
         const mockupUrls = MOCKUP_MAP[p.mockupKey] || {};
         const imgSrc = mockupUrls[color] || Object.values(mockupUrls)[0] || '';
 
+        if (!window.Snipcart || !Snipcart.api) {
+            showToast('Store is loading… please try again in a moment');
+            return;
+        }
         Snipcart.api.cart.items.add({
             id: slug + '-' + size + '-' + color.toLowerCase().replace(/\s+/g, '-'),
             name: p.name + ' (' + p.subtitle + ')',
@@ -1264,6 +1268,15 @@
         });
 
         showToast(p.name + ' (' + color + '/' + size + ') added to cart');
+    }
+
+    // ─── CART OPEN ───────────────────────────────────────
+    function openCart() {
+        if (window.Snipcart && Snipcart.api && Snipcart.api.ui) {
+            Snipcart.api.ui.cart.open();
+        } else {
+            showToast('Cart is loading… please try again in a moment');
+        }
     }
 
     // ─── TOAST ───────────────────────────────────────────
